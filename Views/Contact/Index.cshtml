@@ -1,0 +1,61 @@
+﻿@model OnlineShop.Models.Contact
+@{
+    ViewBag.Title = "Liên hệ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #mapCanvas{
+        width:600px;
+    }
+</style>
+@section jsFooter{
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="/assets/client/js/conttroller/ContactController.js"></script>
+       
+    }    
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-6" style="margin-left:-50px;float:left;">
+                <h2>Thông tin liên hệ</h2>
+                @Html.Raw(Model.Content)
+
+                 <br />
+                <h2>Gửi thông tin</h2>
+                <form>
+                    <div class="form-group">
+                        <label>Họ tên</label>
+                        <input type="text" id="txtName" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Điện thoại</label>
+                        <input type="text" id="txtMobile" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Địa chỉ</label>
+                        <input type="text" id="txtAddress" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" id="txtEmail" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Yêu cầu</label>
+                        <textarea id="txtContent" class="form-control">
+
+                        </textarea>
+                    </div>
+                    <button id="btnSend" class="btn btn-success">Gửi đi</button>
+                </form>
+               
+            </div>
+            <div id="right" class="col-md-6" style="float:left;">
+                <h2>Bản đồ</h2>
+                <div class="map" id="mapCanvas">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.770942196421!2d106.67225901462452!3d10.980654492183149!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d12739bb468f%3A0xe2bf4f397d0aa76!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBUaOG7pyBE4bqndSBN4buZdA!5e0!3m2!1svi!2s!4v1572587270437!5m2!1svi!2s" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

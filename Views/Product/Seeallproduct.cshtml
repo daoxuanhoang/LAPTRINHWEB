@@ -1,0 +1,31 @@
+﻿@model List<OnlineShop.Models.Product>
+@{
+    ViewBag.Title = "Seeallproduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content">
+    <div class="content_top">
+        <div class="heading">
+            <h3>Tất cả sản phẩm</h3>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section group">
+        @foreach (var item in Model)
+        {
+            var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+            <div class="grid_1_of_4 images_1_of_4" style="width:200px;height:330px;margin:5px 5px !important">
+                <div style="height:70%;">
+                    <a href="@url"><img src="~/assets/admin/images/@item.Image" alt="@item.Name" class="rounded mx-auto d-block" /></a>
+                </div>
+                <div><span>@item.Name</span></div>
+                <div class="price-details">
+                        <p><span class="rupees">@(item.Price.HasValue ? item.Price.Value.ToString("N0") : "Liên hệ")</span></p>
+                    </div>
+                <div class="add-cart">
+                    <h4><a href="/them-gio-hang?productId=@item.ID&quantity=1">Thêm vào giỏ</a></h4>
+                </div>
+            </div>
+        }
+</div>
+

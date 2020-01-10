@@ -1,0 +1,73 @@
+﻿@model List<OnlineShop.Models.Cartitem>
+@{
+    ViewBag.Title = "Thanh toán";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if(ViewBag.error != null) { 
+<div class="form-group">
+    <p class="alert alert-danger">@ViewBag.error</p></div>}
+<div class="content">
+    <div class="section group">
+        @if (Model.Count > 0)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>Mã SP</td>
+                        <td>Tên SP</td>
+                        <td>Ảnh SP</td>
+                        <td>Số lượng</td>
+                        <td>Đơn giá</td>
+                        <td>Thành tiền</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Product.ID</td>
+                            <td>@item.Product.Name</td>
+                            <td><img @item.Product.Image width="100" /> </td>
+                            <td><input type="text" class="txtQuantity" data-id="@item.Product.ID" value="@item.Quantity" /> </td>
+                            <td>@item.Product.Price.GetValueOrDefault(0).ToString("N0") </td>
+                            <td>@((item.Product.Price.GetValueOrDefault(0) * item.Quantity).ToString("N0")) </td>
+                            <td>@*<a href="#" data-id="@item.Product.ID" class="btn-delete">Xóa</a>*@
+                            @Ajax.ActionLink("Xóa", "Delete", new { @id = item.Product.ID }, new AjaxOptions
+                       {
+                           Confirm = "Bạn có muốn xóa bản tin này!!!",
+                           OnComplete = "$('#row_" + @item.Product.ID + "').remove()",
+                           HttpMethod = "Delete"
+                       })</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+    <div class="section-group">
+        <div class="col-md-6">
+            @using (Html.BeginForm("Payment", "Cart", FormMethod.Post))
+            {
+                <div class="form-group">
+                    <label>Người nhận</label>
+                    <input name="shipName" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Điện thoại</label>
+                    <input name="mobile" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Địa chỉ</label>
+                    <input name="address" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input name="email" class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-success">Gửi đơn hàng</button>
+            }
+        </div>
+       
+    </div>
+</div>
